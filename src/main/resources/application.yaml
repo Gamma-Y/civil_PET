@@ -1,3 +1,10 @@
 spring:
   application:
     name: civil_PET_project
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+  liquibase:
+    drop-first: true

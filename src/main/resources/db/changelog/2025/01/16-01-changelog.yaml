@@ -1,0 +1,232 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1737053280548-1
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: cars_seq
+            startValue: 1
+  - changeSet:
+      id: 1737053280548-2
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: houses_seq
+            startValue: 1
+  - changeSet:
+      id: 1737053280548-3
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: passports_seq
+            startValue: 1
+  - changeSet:
+      id: 1737053280548-4
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 50
+            sequenceName: residents_seq
+            startValue: 1
+  - changeSet:
+      id: 1737053280548-5
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_cars
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: resident_id
+                  type: BIGINT
+            tableName: cars
+  - changeSet:
+      id: 1737053280548-6
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_houses
+                  name: id
+                  type: BIGINT
+            tableName: houses
+  - changeSet:
+      id: 1737053280548-7
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_passports
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: series
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: number
+                  type: INT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: issuing_authority
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: issue_date
+                  type: DATE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: department code
+                  type: VARCHAR(7)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: sex
+                  type: SMALLINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: date of birth
+                  type: DATE
+              - column:
+                  constraints:
+                    nullable: false
+                  name: place_of_birth
+                  type: VARCHAR(255)
+            tableName: passports
+  - changeSet:
+      id: 1737053280548-8
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_residents
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: first_name
+                  type: VARCHAR(100)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: last_name
+                  type: VARCHAR(100)
+              - column:
+                  name: patronymic
+                  type: VARCHAR(100)
+              - column:
+                  name: passport_id
+                  type: BIGINT
+            tableName: residents
+  - changeSet:
+      id: 1737053280548-9
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_residents_houses
+                  name: houses_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_residents_houses
+                  name: resident_id
+                  type: BIGINT
+            tableName: residents_houses
+  - changeSet:
+      id: 1737053280548-10
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addUniqueConstraint:
+            columnNames: passport_id
+            constraintName: uc_residents_passport
+            tableName: residents
+  - changeSet:
+      id: 1737053280548-11
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: resident_id
+            baseTableName: cars
+            constraintName: FK_CARS_ON_RESIDENT
+            referencedColumnNames: id
+            referencedTableName: residents
+  - changeSet:
+      id: 1737053280548-12
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: passport_id
+            baseTableName: residents
+            constraintName: FK_RESIDENTS_ON_PASSPORT
+            referencedColumnNames: id
+            referencedTableName: passports
+  - changeSet:
+      id: 1737053280548-13
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: houses_id
+            baseTableName: residents_houses
+            constraintName: fk_reshou_on_house
+            referencedColumnNames: id
+            referencedTableName: houses
+  - changeSet:
+      id: 1737053280548-14
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: resident_id
+            baseTableName: residents_houses
+            constraintName: fk_reshou_on_resident
+            referencedColumnNames: id
+            referencedTableName: residents
+
