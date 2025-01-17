@@ -1,4 +1,4 @@
-package ru.pet.proejct.civil_project.db.entities;
+package ru.pet.project.civil_project.db.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
