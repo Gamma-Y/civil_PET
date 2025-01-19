@@ -29,6 +29,7 @@
     <properties>
         <java.version>23</java.version>
         <mapstruct.version>1.6.3</mapstruct.version>
+        <org.mapstruct.extensions.spring.version>1.1.2</org.mapstruct.extensions.spring.version>
     </properties>
     <dependencies>
         <dependency>

@@ -1,0 +1,72 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1737303304672-2
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: brand
+                  type: VARCHAR(50)
+              - column:
+                  name: car_number
+                  type: VARCHAR(10)
+              - column:
+                  name: model
+                  type: VARCHAR(50)
+            tableName: cars
+  - changeSet:
+      id: 1737303304672-3
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addNotNullConstraint:
+            columnName: brand
+            tableName: cars
+  - changeSet:
+      id: 1737303304672-5
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addNotNullConstraint:
+            columnName: car_number
+            tableName: cars
+  - changeSet:
+      id: 1737303304672-7
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addNotNullConstraint:
+            columnName: model
+            tableName: cars
+  - changeSet:
+      id: 1737303304672-8
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: street_name
+                  type: VARCHAR(100)
+            tableName: houses
+  - changeSet:
+      id: 1737303304672-9
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addNotNullConstraint:
+            columnName: street_name
+            tableName: houses
+  - changeSet:
+      id: 1737303304672-1
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addNotNullConstraint:
+            columnDataType: BIGINT
+            columnName: resident_id
+            tableName: cars
+            validate: true
+
