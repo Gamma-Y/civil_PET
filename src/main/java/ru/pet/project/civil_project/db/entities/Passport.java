@@ -51,16 +51,16 @@ public class Passport implements Serializable {
 
     @NotEmpty
     @Length(min = 7, max = 7)
-    @Column(name = "department code", nullable = false, length = 7)
+    @Column(name = "department_code", nullable = false, length = 7)
     private String departmentCode;
 
     @NotNull
-    @Enumerated
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "sex", nullable = false)
     private Sex sex;
 
     @NotNull
-    @Column(name = "date of birth", nullable = false)
+    @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
     @NotBlank

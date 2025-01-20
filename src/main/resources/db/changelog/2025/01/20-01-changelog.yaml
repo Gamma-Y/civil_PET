@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1737384707746-1
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropColumn:
+            columnName: sex
+            tableName: passports
+  - changeSet:
+      id: 1737384707746-2
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    validateNullable: true
+                  name: sex
+                  type: VARCHAR(255)
+            tableName: passports
+
