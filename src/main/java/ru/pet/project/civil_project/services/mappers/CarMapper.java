@@ -14,5 +14,5 @@ import java.util.List;
 public interface CarMapper {
     SimpleCar toSimpleCar(Car car);
 
-    List<SimpleCar> toSimpleCarList(List<Car> cars);
+    List<SimpleCar> toSimpleCars(List<Car> cars);
 }
