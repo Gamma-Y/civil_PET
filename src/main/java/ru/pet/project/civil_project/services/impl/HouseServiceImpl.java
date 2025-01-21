@@ -25,7 +25,7 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<SimpleHouse> getAllAsSimple() {
+    public List<SimpleHouse> getAll() {
         log.info("Fetching all houses");
         List<House> houses = houseRepository.findAll();
         return houseMapper.toSimpleHouses(houses);
@@ -33,7 +33,7 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     @Transactional(readOnly = true)
-    public SimpleHouse getSimpleById(long id) {
+    public SimpleHouse getById(long id) {
         log.info("Fetching house with id: {}", id);
         House house = houseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("House", id));
@@ -42,7 +42,7 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     @Transactional
-    public SimpleHouse addHouse(SimpleHouse simpleHouse) {
+    public SimpleHouse add(SimpleHouse simpleHouse) {
         log.info("Adding new house: {}", simpleHouse);
         House house = houseMapper.toHouse(simpleHouse);
         house = houseRepository.save(house);
@@ -51,19 +51,19 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     @Transactional
-    public SimpleHouse updateHouse(long id, SimpleHouse simpleHouse) {
+    public SimpleHouse update(long id, SimpleHouse simpleHouse) {
         log.info("Updating house with id: {}", id);
         House house = houseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("House", id));
 
-        houseMapper.update(simpleHouse, house);
+        houseMapper.updateHouse(simpleHouse, house);
         house = houseRepository.save(house);
         return houseMapper.toSimpleHouse(house);
     }
 
     @Override
     @Transactional
-    public void deleteHouse(long id) {
+    public void delete(long id) {
         log.info("Deleting house with id: {}", id);
         houseRepository.findById(id)
                 .ifPresentOrElse(

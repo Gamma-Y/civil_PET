@@ -24,12 +24,12 @@ public class HouseController {
 
     @GetMapping
     public ResponseEntity<List<SimpleHouse>> getHouses() {
-        return ResponseEntity.ok(houseService.getAllAsSimple());
+        return ResponseEntity.ok(houseService.getAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<SimpleHouse> getHouse(@PathVariable @Positive long id) {
-        return ResponseEntity.ok(houseService.getSimpleById(id));
+        return ResponseEntity.ok(houseService.getById(id));
     }
 
 
@@ -38,19 +38,19 @@ public class HouseController {
         if (house == null) {
             throw new BadRequestException("House object cannot be null");
         }
-        SimpleHouse simpleHouse = houseService.addHouse(house);
+        SimpleHouse simpleHouse = houseService.add(house);
         return ResponseEntity.created(URI.create("/api/v1/houses/" + simpleHouse.id())).body(simpleHouse);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<SimpleHouse> updateHouse(@PathVariable long id, @RequestBody @Valid SimpleHouse house) {
-        SimpleHouse updatedHouse = houseService.updateHouse(id, house);
+        SimpleHouse updatedHouse = houseService.update(id, house);
         return ResponseEntity.ok(updatedHouse);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<SimpleHouse> deleteHouse(@PathVariable long id) {
-        houseService.deleteHouse(id);
+        houseService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

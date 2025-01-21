@@ -9,13 +9,13 @@ import java.util.List;
  */
 public interface HouseService {
 
-    List<SimpleHouse> getAllAsSimple();
+    List<SimpleHouse> getAll();
 
-    SimpleHouse getSimpleById(long id);
+    SimpleHouse getById(long id);
 
-    SimpleHouse addHouse(final SimpleHouse simpleHouse);
+    SimpleHouse add(final SimpleHouse simpleHouse);
 
-    SimpleHouse updateHouse(long id, final SimpleHouse simpleHouse);
+    SimpleHouse update(long id, final SimpleHouse simpleHouse);
 
-    void deleteHouse(long id);
+    void delete(long id);
 }

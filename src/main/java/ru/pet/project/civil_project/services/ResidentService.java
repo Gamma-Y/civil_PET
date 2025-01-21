@@ -9,9 +9,9 @@ import java.util.List;
  */
 public interface ResidentService {
 
-    List<SimpleResident> getAllAsSimple();
+    List<SimpleResident> getAll();
 
-    SimpleResident getSimpleById(long id);
+    SimpleResident getById(long id);
 
     SimpleResident add(final SimpleResident entity);
 

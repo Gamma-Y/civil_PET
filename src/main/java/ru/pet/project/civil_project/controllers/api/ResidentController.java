@@ -24,12 +24,12 @@ public class ResidentController {
 
     @GetMapping
     public ResponseEntity<List<SimpleResident>> getResidents() {
-        return ResponseEntity.ok(service.getAllAsSimple());
+        return ResponseEntity.ok(service.getAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<SimpleResident> getResident(@PathVariable @Positive long id) {
-        return ResponseEntity.ok(service.getSimpleById(id));
+        return ResponseEntity.ok(service.getById(id));
     }
 
     @PostMapping

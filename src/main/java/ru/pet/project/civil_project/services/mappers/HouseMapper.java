@@ -13,6 +13,7 @@ import java.util.List;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface HouseMapper {
+
     SimpleHouse toSimpleHouse(House house);
 
     List<SimpleHouse> toSimpleHouses(Collection<House> houses);
@@ -20,7 +21,7 @@ public interface HouseMapper {
     House toHouse(SimpleHouse simpleHouse);
 
     @Mapping(target = "id", ignore = true)
-    void update(SimpleHouse simpleHouse, @MappingTarget House house);
+    void updateHouse(SimpleHouse simpleHouse, @MappingTarget House house);
 
 
 }

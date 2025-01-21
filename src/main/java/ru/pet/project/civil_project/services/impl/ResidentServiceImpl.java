@@ -27,7 +27,7 @@ public class ResidentServiceImpl implements ResidentService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<SimpleResident> getAllAsSimple() {
+    public List<SimpleResident> getAll() {
         log.info("Fetching all houses");
         List<Resident> residents = residentRepository.findAll();
         return residentMapper.toSimpleResidents(residents);
@@ -35,7 +35,7 @@ public class ResidentServiceImpl implements ResidentService {
 
     @Override
     @Transactional(readOnly = true)
-    public SimpleResident getSimpleById(long id) {
+    public SimpleResident getById(long id) {
         log.info("Fetching resident with id: {}", id);
         Resident resident = residentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Resident", id));
