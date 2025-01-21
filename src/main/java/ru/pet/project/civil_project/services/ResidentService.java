@@ -13,10 +13,12 @@ public interface ResidentService {
 
     SimpleResident getById(long id);
 
-    SimpleResident add(final SimpleResident entity);
+    SimpleResident add(final SimpleResident dto);
 
-    SimpleResident update(long id, final SimpleResident entity);
+    SimpleResident update(long id, final SimpleResident dto);
 
     void delete(long id);
+
+    List<SimpleResident> findByStreetName(final String streetName);
 
 }

@@ -28,7 +28,7 @@ public class HouseServiceImpl implements HouseService {
     public List<SimpleHouse> getAll() {
         log.info("Fetching all houses");
         List<House> houses = houseRepository.findAll();
-        return houseMapper.toSimpleHouses(houses);
+        return houseMapper.toSimpleHouseDtos(houses);
     }
 
     @Override
@@ -37,28 +37,28 @@ public class HouseServiceImpl implements HouseService {
         log.info("Fetching house with id: {}", id);
         House house = houseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("House", id));
-        return houseMapper.toSimpleHouse(house);
+        return houseMapper.toSimpleHouseDto(house);
     }
 
     @Override
     @Transactional
-    public SimpleHouse add(SimpleHouse simpleHouse) {
-        log.info("Adding new house: {}", simpleHouse);
-        House house = houseMapper.toHouse(simpleHouse);
+    public SimpleHouse add(SimpleHouse dto) {
+        log.info("Adding new house: {}", dto);
+        House house = houseMapper.toHouse(dto);
         house = houseRepository.save(house);
-        return houseMapper.toSimpleHouse(house);
+        return houseMapper.toSimpleHouseDto(house);
     }
 
     @Override
     @Transactional
-    public SimpleHouse update(long id, SimpleHouse simpleHouse) {
+    public SimpleHouse update(long id, SimpleHouse dto) {
         log.info("Updating house with id: {}", id);
         House house = houseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("House", id));
 
-        houseMapper.updateHouse(simpleHouse, house);
+        houseMapper.updateHouse(dto, house);
         house = houseRepository.save(house);
-        return houseMapper.toSimpleHouse(house);
+        return houseMapper.toSimpleHouseDto(house);
     }
 
     @Override

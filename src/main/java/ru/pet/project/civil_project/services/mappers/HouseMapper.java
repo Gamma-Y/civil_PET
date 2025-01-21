@@ -14,9 +14,9 @@ import java.util.List;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface HouseMapper {
 
-    SimpleHouse toSimpleHouse(House house);
+    SimpleHouse toSimpleHouseDto(House house);
 
-    List<SimpleHouse> toSimpleHouses(Collection<House> houses);
+    List<SimpleHouse> toSimpleHouseDtos(Collection<House> houses);
 
     House toHouse(SimpleHouse simpleHouse);
 

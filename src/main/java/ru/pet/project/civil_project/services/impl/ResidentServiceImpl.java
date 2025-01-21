@@ -1,5 +1,6 @@
 package ru.pet.project.civil_project.services.impl;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class ResidentServiceImpl implements ResidentService {
     public List<SimpleResident> getAll() {
         log.info("Fetching all houses");
         List<Resident> residents = residentRepository.findAll();
-        return residentMapper.toSimpleResidents(residents);
+        return residentMapper.toSimpleResidentDtos(residents);
     }
 
     @Override
@@ -39,31 +40,32 @@ public class ResidentServiceImpl implements ResidentService {
         log.info("Fetching resident with id: {}", id);
         Resident resident = residentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Resident", id));
-        return residentMapper.toSimpleResident(resident);
+        return residentMapper.toSimpleResidentDto(resident);
     }
 
     @Override
     @Transactional
-    public SimpleResident add(SimpleResident entity) {
-        log.info("Adding new resident: {}", entity);
-        Resident resident = residentMapper.toResident(entity);
+    public SimpleResident add(SimpleResident dto) {
+        log.info("Adding new resident: {}", dto);
+        Resident resident = residentMapper.toResident(dto);
         resident = residentRepository.save(resident);
-        return residentMapper.toSimpleResident(resident);
+        return residentMapper.toSimpleResidentDto(resident);
     }
 
     @Override
     @Transactional
-    public SimpleResident update(long id, SimpleResident entity) {
+    public SimpleResident update(long id, SimpleResident dto) {
         log.info("Updating resident with id: {}", id);
         Resident resident = residentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Resident", id));
 
-        residentMapper.updateResident(entity, resident);
+        residentMapper.updateResident(dto, resident);
         resident = residentRepository.save(resident);
-        return residentMapper.toSimpleResident(resident);
+        return residentMapper.toSimpleResidentDto(resident);
     }
 
     @Override
+    @Transactional
     public void delete(long id) {
         log.info("Deleting resident with id: {}", id);
         residentRepository.findById(id)
@@ -73,5 +75,13 @@ public class ResidentServiceImpl implements ResidentService {
                             throw new ResourceNotFoundException("Resident", id);
                         }
                 );
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<SimpleResident> findByStreetName(@NotBlank String streetName) {
+        log.info("Finding all residents by street name: {}", streetName);
+        List<Resident> distinctByHousesStreetName = residentRepository.findDistinctByHouses_StreetName(streetName);
+        return residentMapper.toSimpleResidentDtos(distinctByHousesStreetName);
     }
 }

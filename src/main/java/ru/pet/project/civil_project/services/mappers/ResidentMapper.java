@@ -15,9 +15,9 @@ import java.util.List;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface ResidentMapper {
 
-    SimpleResident toSimpleResident(Resident resident);
+    SimpleResident toSimpleResidentDto(Resident resident);
 
-    List<SimpleResident> toSimpleResidents(List<Resident> residents);
+    List<SimpleResident> toSimpleResidentDtos(List<Resident> residents);
 
     Resident toResident(SimpleResident simpleResident);
 

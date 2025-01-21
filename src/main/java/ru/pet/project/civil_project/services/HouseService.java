@@ -13,9 +13,9 @@ public interface HouseService {
 
     SimpleHouse getById(long id);
 
-    SimpleHouse add(final SimpleHouse simpleHouse);
+    SimpleHouse add(final SimpleHouse dto);
 
-    SimpleHouse update(long id, final SimpleHouse simpleHouse);
+    SimpleHouse update(long id, final SimpleHouse dto);
 
     void delete(long id);
 }

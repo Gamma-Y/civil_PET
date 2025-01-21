@@ -1,8 +1,10 @@
 package ru.pet.project.civil_project.controllers.api;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.pet.project.civil_project.exception.BadRequestException;
@@ -10,6 +12,7 @@ import ru.pet.project.civil_project.services.ResidentService;
 import ru.pet.project.civil_project.services.dto.resident.SimpleResident;
 
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -51,5 +54,18 @@ public class ResidentController {
     public ResponseEntity<SimpleResident> deleteResident(@PathVariable long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/streetname/{streetName}")
+    public ResponseEntity<List<SimpleResident>> getAllResidentByStreetName(@PathVariable @NotBlank(message = "Street name cannot be blank") String streetName) {
+        if (streetName.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(Collections.emptyList());
+        }
+
+        List<SimpleResident> residents = service.findByStreetName(streetName);
+        if (residents.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList());
+        }
+        return ResponseEntity.ok(residents);
     }
 }
