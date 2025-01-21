@@ -10,6 +10,4 @@ databaseChangeLog:
   - include:
       file: db/changelog/2025/01/20-01-changelog.yaml
   - include:
-      file: db/changelog/2025/01/20-02-changelog.yaml
-#  - include:
-#      file: db/changelog/2025/01/house-input.yaml
+      file: db/changelog/2025/01/21-01-changelog.yaml

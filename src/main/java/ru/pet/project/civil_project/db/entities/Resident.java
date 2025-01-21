@@ -44,7 +44,6 @@ public class Resident implements Serializable {
     private String patronymic;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "passport_id")
     private Passport passport;
 
     @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)

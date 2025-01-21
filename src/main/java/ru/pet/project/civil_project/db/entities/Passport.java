@@ -22,11 +22,12 @@ import java.util.Objects;
 @AllArgsConstructor
 public class Passport implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(nullable = false)
     private Long id;
 
-    @OneToOne(mappedBy = "passport", orphanRemoval = true)
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "id")
+    @MapsId
     private Resident resident;
 
     @NotNull

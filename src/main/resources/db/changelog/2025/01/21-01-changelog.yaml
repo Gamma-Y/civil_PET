@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1737386024049-3
+      id: 1737476891123-3
       author: Gamma
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -14,7 +14,7 @@ databaseChangeLog:
                   type: VARCHAR(7)
             tableName: passports
   - changeSet:
-      id: 1737386024049-4
+      id: 1737476891123-4
       author: Gamma
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -22,7 +22,7 @@ databaseChangeLog:
             columnName: date_of_birth
             tableName: passports
   - changeSet:
-      id: 1737386024049-6
+      id: 1737476891123-6
       author: Gamma
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -30,7 +30,25 @@ databaseChangeLog:
             columnName: department_code
             tableName: passports
   - changeSet:
-      id: 1737386024049-1
+      id: 1737476891123-7
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: id
+            baseTableName: passports
+            constraintName: FK_PASSPORTS_ON_ID
+            referencedColumnNames: id
+            referencedTableName: residents
+  - changeSet:
+      id: 1737476891123-9
+      author: Gamma
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - dropSequence:
+            sequenceName: passports_seq
+  - changeSet:
+      id: 1737476891123-1
       author: Gamma
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -38,7 +56,7 @@ databaseChangeLog:
             columnName: sex
             tableName: passports
   - changeSet:
-      id: 1737386024049-2
+      id: 1737476891123-2
       author: Gamma
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
