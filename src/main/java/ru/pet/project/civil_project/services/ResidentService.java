@@ -9,10 +9,14 @@ import java.util.List;
  */
 public interface ResidentService {
 
-    SimpleResident getResident(long id);
+    List<SimpleResident> getAllAsSimple();
 
-    List<SimpleResident> getAllResidents();
+    SimpleResident getSimpleById(long id);
 
+    SimpleResident add(final SimpleResident entity);
 
+    SimpleResident update(long id, final SimpleResident entity);
+
+    void delete(long id);
 
 }
