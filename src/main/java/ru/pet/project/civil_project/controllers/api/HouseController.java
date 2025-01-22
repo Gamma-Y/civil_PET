@@ -19,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/houses")
 public class HouseController {
+    private static final String HOUSE_URL = "/api/v1/houses/";
 
     private final HouseService houseService;
 
@@ -39,7 +40,7 @@ public class HouseController {
             throw new BadRequestException("House object cannot be null");
         }
         SimpleHouse simpleHouse = houseService.add(house);
-        return ResponseEntity.created(URI.create("/api/v1/houses/" + simpleHouse.id())).body(simpleHouse);
+        return ResponseEntity.created(URI.create(HOUSE_URL + simpleHouse.id())).body(simpleHouse);
     }
 
     @PutMapping("/{id}")

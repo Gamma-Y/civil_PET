@@ -22,6 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/residents/")
 public class ResidentController {
+    private static final String RESIDENT_URL = "/api/v1/residents/";
+
 
     private final ResidentService service;
 
@@ -41,7 +43,7 @@ public class ResidentController {
             throw new BadRequestException("Resident object cannot be null");
         }
         SimpleResident simpleResident = service.add(resident);
-        return ResponseEntity.created(URI.create("/api/v1/residents/" + simpleResident.id())).body(simpleResident);
+        return ResponseEntity.created(URI.create(RESIDENT_URL + simpleResident.id())).body(simpleResident);
     }
 
     @PutMapping("/{id}")
