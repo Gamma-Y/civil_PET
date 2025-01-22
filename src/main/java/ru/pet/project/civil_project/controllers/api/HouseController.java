@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.pet.project.civil_project.exception.BadRequestException;
-import ru.pet.project.civil_project.services.HouseService;
 import ru.pet.project.civil_project.services.dto.house.SimpleHouse;
+import ru.pet.project.civil_project.services.impl.general.HouseService;
 
 import java.net.URI;
 import java.util.List;

@@ -12,7 +12,7 @@ public class ResourceNotFoundException extends RuntimeException {
         super("Resource not found: " + resource);
     }
 
-    public ResourceNotFoundException(String resource, Long id) {
+    public ResourceNotFoundException(String resource, Object id) {
         super("Resource " + resource + " with id " + id + " not found");
     }
 }

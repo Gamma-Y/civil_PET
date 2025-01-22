@@ -1,4 +1,4 @@
-package ru.pet.project.civil_project.services;
+package ru.pet.project.civil_project.services.impl.general;
 
 import java.util.List;
 import java.util.Optional;
