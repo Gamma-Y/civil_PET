@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.pet.project.civil_project.exception.BadRequestException;
 import ru.pet.project.civil_project.services.ResidentService;
+import ru.pet.project.civil_project.services.dto.resident.FullResidentInfo;
 import ru.pet.project.civil_project.services.dto.resident.SimpleResident;
 
 import java.net.URI;
@@ -38,12 +39,12 @@ public class ResidentController {
     }
 
     @PostMapping
-    public ResponseEntity<SimpleResident> createResident(@RequestBody @Valid final SimpleResident resident) {
+    public ResponseEntity<FullResidentInfo> createResident(@RequestBody @Valid final FullResidentInfo resident) {
         if (resident == null) {
             throw new BadRequestException("Resident object cannot be null");
         }
-        SimpleResident simpleResident = service.add(resident);
-        return ResponseEntity.created(URI.create(RESIDENT_URL + simpleResident.id())).body(simpleResident);
+        FullResidentInfo residentInfo = service.add(resident);
+        return ResponseEntity.created(URI.create(RESIDENT_URL + resident.id())).body(resident);
     }
 
     @PutMapping("/{id}")

@@ -1,10 +1,9 @@
 package ru.pet.project.civil_project.services.mappers;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 import ru.pet.project.civil_project.db.entities.Resident;
+import ru.pet.project.civil_project.services.dto.passport.SimplePassport;
+import ru.pet.project.civil_project.services.dto.resident.FullResidentInfo;
 import ru.pet.project.civil_project.services.dto.resident.SimpleResident;
 
 import java.util.List;
@@ -20,6 +19,11 @@ public interface ResidentMapper {
     List<SimpleResident> toSimpleResidentDtos(List<Resident> residents);
 
     Resident toResident(SimpleResident simpleResident);
+
+    @Mapping(target = "passport", ignore = true)
+    Resident toResident(FullResidentInfo fullResidentInfo);
+
+    FullResidentInfo toFullResidentDto(Resident resident);
 
     void updateResident(SimpleResident simpleResident, @MappingTarget Resident resident);
 }

@@ -8,7 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.pet.project.civil_project.db.entities.Resident;
 import ru.pet.project.civil_project.db.repositories.ResidentRepository;
 import ru.pet.project.civil_project.exception.ResourceNotFoundException;
+import ru.pet.project.civil_project.services.PassportService;
 import ru.pet.project.civil_project.services.ResidentService;
+import ru.pet.project.civil_project.services.dto.passport.SimplePassport;
+import ru.pet.project.civil_project.services.dto.resident.FullResidentInfo;
 import ru.pet.project.civil_project.services.dto.resident.SimpleResident;
 import ru.pet.project.civil_project.services.impl.general.ResidentsGeneralService;
 import ru.pet.project.civil_project.services.mappers.ResidentMapper;
@@ -27,6 +30,7 @@ public class ResidentServiceImpl implements ResidentService {
     private final ResidentsGeneralService generalService;
     private final ResidentRepository residentRepository;
     private final ResidentMapper residentMapper;
+    private final PassportService passportService;
 
 
     @Override
@@ -48,11 +52,12 @@ public class ResidentServiceImpl implements ResidentService {
 
     @Override
     @Transactional
-    public SimpleResident add(SimpleResident dto) {
+    public FullResidentInfo add(FullResidentInfo dto) {
         log.info("Adding new resident: {}", dto);
         Resident resident = residentMapper.toResident(dto);
         resident = generalService.save(resident);
-        return residentMapper.toSimpleResidentDto(resident);
+        SimplePassport newPassport = passportService.add(resident, dto.passport());
+        return residentMapper.toFullResidentDto(resident);
     }
 
     @Override
