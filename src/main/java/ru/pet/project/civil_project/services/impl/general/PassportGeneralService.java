@@ -2,6 +2,7 @@ package ru.pet.project.civil_project.services.impl.general;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pet.project.civil_project.db.entities.Passport;
@@ -21,7 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class PassportGeneralService implements GeneralService<Passport, Long> {
 
-    private final PassportRepository passportRepository;
+    private final JpaRepository<Passport, Long> passportRepository;
 
     @Override
     @Transactional(readOnly = true)

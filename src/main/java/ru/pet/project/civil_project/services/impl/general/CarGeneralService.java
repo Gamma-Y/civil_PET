@@ -2,10 +2,10 @@ package ru.pet.project.civil_project.services.impl.general;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pet.project.civil_project.db.entities.Car;
-import ru.pet.project.civil_project.db.repositories.CarRepository;
 import ru.pet.project.civil_project.exception.ResourceNotFoundException;
 import ru.pet.project.civil_project.services.GeneralService;
 
@@ -19,7 +19,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class CarGeneralService implements GeneralService<Car, Long> {
-    private final CarRepository carRepository;
+
+    private final JpaRepository<Car, Long> carRepository;
 
     @Override
     @Transactional(readOnly = true)

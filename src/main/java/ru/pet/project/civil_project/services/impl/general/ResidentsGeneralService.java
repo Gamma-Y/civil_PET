@@ -2,10 +2,10 @@ package ru.pet.project.civil_project.services.impl.general;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pet.project.civil_project.db.entities.Resident;
-import ru.pet.project.civil_project.db.repositories.ResidentRepository;
 import ru.pet.project.civil_project.exception.ResourceNotFoundException;
 import ru.pet.project.civil_project.services.GeneralService;
 
@@ -20,7 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ResidentsGeneralService implements GeneralService<Resident, Long> {
 
-    private final ResidentRepository residentRepository;
+    private final JpaRepository<Resident, Long> residentRepository;
 
     @Override
     @Transactional(readOnly = true)
