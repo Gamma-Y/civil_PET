@@ -15,8 +15,5 @@ public interface PassportService {
     SimplePassport getById(long id);
 
     SimplePassport add(final Resident resident, final SimplePassport dto);
-//
-//    SimplePassport update(long id, final SimplePassport dto);
-//
-//    void delete(long id);
+
 }

@@ -1,4 +1,4 @@
-package ru.pet.project.civil_project.controllers.api;
+package ru.pet.project.civil_project.controllers.api.exeption;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

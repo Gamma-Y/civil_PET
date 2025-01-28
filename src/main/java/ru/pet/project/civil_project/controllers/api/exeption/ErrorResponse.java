@@ -1,4 +1,4 @@
-package ru.pet.project.civil_project.controllers.api;
+package ru.pet.project.civil_project.controllers.api.exeption;
 
 /**
  * @author Gamma on 23.01.2025

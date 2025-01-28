@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pet.project.civil_project.db.entities.House;
+import ru.pet.project.civil_project.db.repositories.HouseRepository;
 import ru.pet.project.civil_project.exception.ResourceNotFoundException;
-import ru.pet.project.civil_project.services.GeneralService;
 import ru.pet.project.civil_project.services.HouseService;
 import ru.pet.project.civil_project.services.dto.house.SimpleHouse;
 import ru.pet.project.civil_project.services.mappers.HouseMapper;
@@ -22,14 +22,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class HouseServiceImpl implements HouseService {
 
-    private final GeneralService<House, Long> generalService;
+    private final HouseRepository houseRepository;
     private final HouseMapper houseMapper;
 
     @Override
     @Transactional(readOnly = true)
     public List<SimpleHouse> getAll() {
         log.info("Fetching all houses");
-        List<House> houses = generalService.findAll();
+        List<House> houses = houseRepository.findAll();
         return houseMapper.toSimpleHouseDtos(houses);
     }
 
@@ -37,7 +37,7 @@ public class HouseServiceImpl implements HouseService {
     @Transactional(readOnly = true)
     public SimpleHouse getById(long id) {
         log.info("Fetching house with id: {}", id);
-        House house = generalService.findById(id)
+        House house = houseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("House", id));
         return houseMapper.toSimpleHouseDto(house);
     }
@@ -47,7 +47,7 @@ public class HouseServiceImpl implements HouseService {
     public SimpleHouse add(SimpleHouse dto) {
         log.info("Adding new house: {}", dto);
         House house = houseMapper.toHouse(dto);
-        house = generalService.save(house);
+        house = houseRepository.save(house);
         return houseMapper.toSimpleHouseDto(house);
     }
 
@@ -55,11 +55,11 @@ public class HouseServiceImpl implements HouseService {
     @Transactional
     public SimpleHouse update(long id, SimpleHouse dto) {
         log.info("Updating house with id: {}", id);
-        House house = generalService.findById(id)
+        House house = houseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("House", id));
 
         houseMapper.updateHouse(dto, house);
-        house = generalService.save(house);
+        house = houseRepository.save(house);
         return houseMapper.toSimpleHouseDto(house);
     }
 
@@ -67,9 +67,9 @@ public class HouseServiceImpl implements HouseService {
     @Transactional
     public void delete(long id) {
         log.info("Deleting house with id: {}", id);
-        Optional<House> byId = generalService.findById(id);
+        Optional<House> byId = houseRepository.findById(id);
         if (byId.isPresent()) {
-            generalService.delete(id);
+            houseRepository.deleteById(id);
         } else throw new ResourceNotFoundException("House", id);
     }
 
