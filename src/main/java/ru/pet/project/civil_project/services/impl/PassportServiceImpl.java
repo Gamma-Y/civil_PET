@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pet.project.civil_project.db.entities.Passport;
-import ru.pet.project.civil_project.db.entities.Resident;
 import ru.pet.project.civil_project.db.repositories.PassportRepository;
 import ru.pet.project.civil_project.exception.ResourceNotFoundException;
 import ru.pet.project.civil_project.services.PassportService;
@@ -46,13 +45,11 @@ public class PassportServiceImpl implements PassportService {
 
     @Override
     @Transactional
-    public SimplePassport add(final Resident resident, final SimplePassport dto) {
-        log.info("Adding new passport: {}", dto);
-        Passport passport = passportMapper.toPassport(dto);
-        passport.setResident(resident);
-        resident.setPassport(passport);
-        passport = passportRepository.save(passport);
-        return passportMapper.toSimplePassportDto(passport);
+    public SimplePassport add(final Passport passport) {
+        log.info("Adding new passport: {}", passport);
+        Passport save = passportRepository.save(passport);
+        return passportMapper.toSimplePassportDto(save);
     }
+
 
 }

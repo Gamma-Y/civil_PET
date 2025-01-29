@@ -44,7 +44,7 @@ public class ResidentController {
             throw new BadRequestException("Resident object cannot be null");
         }
         FullResidentInfo residentInfo = service.add(resident);
-        return ResponseEntity.created(URI.create(RESIDENT_URL + resident.id())).body(resident);
+        return ResponseEntity.created(URI.create(RESIDENT_URL + resident.id())).body(residentInfo);
     }
 
     @PutMapping("/{id}")

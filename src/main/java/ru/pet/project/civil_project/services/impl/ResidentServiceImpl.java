@@ -5,14 +5,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.pet.project.civil_project.db.entities.Passport;
 import ru.pet.project.civil_project.db.entities.Resident;
 import ru.pet.project.civil_project.db.repositories.ResidentRepository;
 import ru.pet.project.civil_project.exception.ResourceNotFoundException;
+import ru.pet.project.civil_project.services.CarService;
 import ru.pet.project.civil_project.services.PassportService;
 import ru.pet.project.civil_project.services.ResidentService;
-import ru.pet.project.civil_project.services.dto.passport.SimplePassport;
 import ru.pet.project.civil_project.services.dto.resident.FullResidentInfo;
 import ru.pet.project.civil_project.services.dto.resident.SimpleResident;
+import ru.pet.project.civil_project.services.mappers.PassportMapper;
 import ru.pet.project.civil_project.services.mappers.ResidentMapper;
 
 import java.util.List;
@@ -28,7 +30,9 @@ public class ResidentServiceImpl implements ResidentService {
 
     private final ResidentRepository residentRepository;
     private final ResidentMapper residentMapper;
+    private final PassportMapper passportMapper;
     private final PassportService passportService;
+    private final CarService carService;
 
 
     @Override
@@ -53,8 +57,9 @@ public class ResidentServiceImpl implements ResidentService {
     public FullResidentInfo add(FullResidentInfo dto) {
         log.info("Adding new resident: {}", dto);
         Resident resident = residentMapper.toResident(dto);
+        Passport passport = passportMapper.toPassport(dto.passport());
+        resident.addPassport(passport);
         resident = residentRepository.save(resident);
-        SimplePassport newPassport = passportService.add(resident, dto.passport());
         return residentMapper.toFullResidentDto(resident);
     }
 
@@ -76,7 +81,9 @@ public class ResidentServiceImpl implements ResidentService {
         log.info("Deleting resident with id: {}", id);
         Optional<Resident> byId = residentRepository.findById(id);
         if (byId.isPresent()) {
-            residentRepository.deleteById(id);
+            Resident resident = byId.get();
+            carService.delete(resident);
+            residentRepository.delete(resident);
         } else throw new ResourceNotFoundException("Resident", id);
 
     }

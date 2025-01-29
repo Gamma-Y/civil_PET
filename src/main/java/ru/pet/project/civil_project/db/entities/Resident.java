@@ -44,9 +44,10 @@ public class Resident implements Serializable {
     private String patronymic;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "passport_id", referencedColumnName = "id")
     private Passport passport;
 
-    @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "resident", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Set<Car> cars = new HashSet<>();
 
     @ManyToMany
@@ -55,12 +56,20 @@ public class Resident implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "houses_id"))
     private Set<House> houses = new HashSet<>();
 
+
+    public void addPassport(Passport passport) {
+        this.passport = passport;
+        passport.setResident(this);
+    }
+
     public void addCar(Car car) {
         cars.add(car);
+        car.setResident(this);
     }
 
     public void removeCar(Car car) {
         cars.remove(car);
+        car.setResident(null);
     }
 
     public void addHouse(House house) {

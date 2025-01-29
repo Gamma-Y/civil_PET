@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pet.project.civil_project.db.entities.Car;
+import ru.pet.project.civil_project.db.entities.Resident;
 import ru.pet.project.civil_project.db.repositories.CarRepository;
 import ru.pet.project.civil_project.exception.ResourceNotFoundException;
 import ru.pet.project.civil_project.services.CarService;
@@ -13,6 +14,7 @@ import ru.pet.project.civil_project.services.mappers.CarMapper;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * @author Gamma on 22.01.2025
@@ -69,5 +71,15 @@ public class CarServiceImpl implements CarService {
         if (byId.isPresent()) {
             carRepository.deleteById(id);
         } else throw new ResourceNotFoundException("Resident", id);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Resident resident) {
+        log.info("Deleting car for resident by id: {}", resident.getId());
+        Set<Car> cars = resident.getCars();
+        log.info("Found {} cars", cars.size());
+//        cars.forEach(resident::removeCar);
+        carRepository.deleteAll(cars);
     }
 }

@@ -2,7 +2,6 @@ package ru.pet.project.civil_project.db.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -26,11 +25,6 @@ public class Car implements Serializable {
     @Column(nullable = false)
     private Long id;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "resident_id", nullable = false)
-    private Resident resident;
-
     @Length(max = 50)
     @NotBlank
     @Column(name = "brand", nullable = false, length = 50)
@@ -45,6 +39,10 @@ public class Car implements Serializable {
     @NotBlank
     @Column(name = "car_number", nullable = false, length = 10)
     private String carNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "resident_id")
+    private Resident resident;
 
     @Override
     public boolean equals(Object o) {
