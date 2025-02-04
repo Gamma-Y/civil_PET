@@ -1,6 +1,7 @@
 package ru.pet.project.civil_project.services;
 
 import ru.pet.project.civil_project.db.entities.Resident;
+import ru.pet.project.civil_project.services.dto.car.ResidentCar;
 import ru.pet.project.civil_project.services.dto.car.SimpleCar;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface CarService {
 
     SimpleCar getById(long id);
 
-    SimpleCar add(final SimpleCar dto);
+    SimpleCar add(final ResidentCar dto);
 
     SimpleCar update(long id, final SimpleCar dto);
 

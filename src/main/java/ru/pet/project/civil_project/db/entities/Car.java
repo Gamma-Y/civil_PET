@@ -44,21 +44,25 @@ public class Car implements Serializable {
     @JoinColumn(name = "resident_id")
     private Resident resident;
 
+    public void deleteResident() {
+        this.resident = null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
         Car car = (Car) o;
-        return Objects.equals(id, car.id) && Objects.equals(resident, car.resident) && Objects.equals(brand, car.brand) && Objects.equals(model, car.model) && Objects.equals(carNumber, car.carNumber);
+        return Objects.equals(id, car.id) && Objects.equals(brand, car.brand) && Objects.equals(model, car.model) && Objects.equals(carNumber, car.carNumber) && Objects.equals(resident, car.resident);
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hashCode(id);
-        result = 31 * result + Objects.hashCode(resident);
         result = 31 * result + Objects.hashCode(brand);
         result = 31 * result + Objects.hashCode(model);
         result = 31 * result + Objects.hashCode(carNumber);
+        result = 31 * result + Objects.hashCode(resident);
         return result;
     }
 

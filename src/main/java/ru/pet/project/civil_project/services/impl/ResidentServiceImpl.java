@@ -53,7 +53,6 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
     @Override
-    @Transactional
     public FullResidentInfo add(FullResidentInfo dto) {
         log.info("Adding new resident: {}", dto);
         Resident resident = residentMapper.toResident(dto);
@@ -76,7 +75,6 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
     @Override
-    @Transactional
     public void delete(long id) {
         log.info("Deleting resident with id: {}", id);
         Optional<Resident> byId = residentRepository.findById(id);

@@ -81,11 +81,22 @@ public class Resident implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "Resident{" +
+                "passport=" + passport +
+                ", patronymic='" + patronymic + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
         Resident resident = (Resident) o;
-        return Objects.equals(id, resident.id) && Objects.equals(firstName, resident.firstName) && Objects.equals(lastName, resident.lastName) && Objects.equals(patronymic, resident.patronymic) && Objects.equals(passport, resident.passport) && Objects.equals(cars, resident.cars) && Objects.equals(houses, resident.houses);
+        return Objects.equals(id, resident.id) && Objects.equals(firstName, resident.firstName) && Objects.equals(lastName, resident.lastName) && Objects.equals(patronymic, resident.patronymic) && Objects.equals(passport, resident.passport);
     }
 
     @Override
@@ -95,19 +106,6 @@ public class Resident implements Serializable {
         result = 31 * result + Objects.hashCode(lastName);
         result = 31 * result + Objects.hashCode(patronymic);
         result = 31 * result + Objects.hashCode(passport);
-        result = 31 * result + Objects.hashCode(cars);
-        result = 31 * result + Objects.hashCode(houses);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Resident{" +
-                "passport=" + passport +
-                ", patronymic='" + patronymic + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", id=" + id +
-                '}';
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.pet.project.civil_project.exception.BadRequestException;
 import ru.pet.project.civil_project.services.CarService;
+import ru.pet.project.civil_project.services.dto.car.ResidentCar;
 import ru.pet.project.civil_project.services.dto.car.SimpleCar;
 
 import java.net.URI;
@@ -38,7 +39,7 @@ public class CarController {
 
 
     @PostMapping
-    public ResponseEntity<SimpleCar> createCar(@RequestBody @Valid final SimpleCar car) {
+    public ResponseEntity<SimpleCar> createCar(@RequestBody @Valid final ResidentCar car) {
         if (car == null) {
             throw new BadRequestException("Car object cannot be null");
         }

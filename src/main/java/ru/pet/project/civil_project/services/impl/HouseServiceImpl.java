@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pet.project.civil_project.db.entities.House;
+import ru.pet.project.civil_project.db.entities.Resident;
 import ru.pet.project.civil_project.db.repositories.HouseRepository;
 import ru.pet.project.civil_project.exception.ResourceNotFoundException;
 import ru.pet.project.civil_project.services.HouseService;
@@ -13,6 +14,7 @@ import ru.pet.project.civil_project.services.mappers.HouseMapper;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * @author Gamma on 19.01.2025
@@ -43,7 +45,6 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    @Transactional
     public SimpleHouse add(SimpleHouse dto) {
         log.info("Adding new house: {}", dto);
         House house = houseMapper.toHouse(dto);
@@ -52,7 +53,6 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    @Transactional
     public SimpleHouse update(long id, SimpleHouse dto) {
         log.info("Updating house with id: {}", id);
         House house = houseRepository.findById(id)
@@ -64,11 +64,14 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    @Transactional
+
     public void delete(long id) {
         log.info("Deleting house with id: {}", id);
         Optional<House> byId = houseRepository.findById(id);
         if (byId.isPresent()) {
+            House house = byId.get();
+            Set<Resident> residents = house.getResidents();
+            residents.forEach(r -> r.removeHouse(house));
             houseRepository.deleteById(id);
         } else throw new ResourceNotFoundException("House", id);
     }

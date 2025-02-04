@@ -7,8 +7,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.pet.project.civil_project.db.entities.Car;
 import ru.pet.project.civil_project.db.entities.Resident;
 import ru.pet.project.civil_project.db.repositories.CarRepository;
+import ru.pet.project.civil_project.db.repositories.ResidentRepository;
 import ru.pet.project.civil_project.exception.ResourceNotFoundException;
 import ru.pet.project.civil_project.services.CarService;
+import ru.pet.project.civil_project.services.dto.car.ResidentCar;
 import ru.pet.project.civil_project.services.dto.car.SimpleCar;
 import ru.pet.project.civil_project.services.mappers.CarMapper;
 
@@ -27,6 +29,7 @@ public class CarServiceImpl implements CarService {
 
     private final CarRepository carRepository;
     private final CarMapper carMapper;
+    private final ResidentRepository residentRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -46,11 +49,18 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public SimpleCar add(SimpleCar dto) {
-        log.info("Adding new car: {}", dto);
+    @Transactional
+    public SimpleCar add(ResidentCar dto) {
+        log.info("Adding new car: {} to resident by id {}", dto, dto.residentId());
         Car car = carMapper.toCar(dto);
-        car = carRepository.save(car);
-        return carMapper.toSimpleCarDto(car);
+        Optional<Resident> byId = residentRepository.findById(dto.residentId());
+        if (byId.isPresent()) {
+            Resident resident = byId.get();
+            resident.addCar(car);
+            car = carRepository.save(car);
+            return carMapper.toSimpleCarDto(car);
+        } else throw new ResourceNotFoundException("Resident", dto.residentId());
+
     }
 
     @Override
@@ -79,7 +89,7 @@ public class CarServiceImpl implements CarService {
         log.info("Deleting car for resident by id: {}", resident.getId());
         Set<Car> cars = resident.getCars();
         log.info("Found {} cars", cars.size());
-//        cars.forEach(resident::removeCar);
+        cars.forEach(Car::deleteResident);
         carRepository.deleteAll(cars);
     }
 }

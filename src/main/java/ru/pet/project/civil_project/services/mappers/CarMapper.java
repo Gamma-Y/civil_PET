@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 import ru.pet.project.civil_project.db.entities.Car;
+import ru.pet.project.civil_project.services.dto.car.ResidentCar;
 import ru.pet.project.civil_project.services.dto.car.SimpleCar;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public interface CarMapper {
     List<SimpleCar> toSimpleCarDtos(List<Car> cars);
 
     Car toCar(SimpleCar simpleCar);
+
+    Car toCar(ResidentCar residentCar);
 
     @Mapping(target = "id", ignore = true)
     void updateCar(SimpleCar simpleCar, @MappingTarget Car car);
